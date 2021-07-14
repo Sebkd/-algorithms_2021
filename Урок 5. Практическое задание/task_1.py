@@ -35,10 +35,7 @@ if __name__ == '__main__':
         name_firm = str (input ('Введите название предприятия: '))
         annual_profit = str (input ('через пробел введите прибыль данного предприятия '
                                     'за каждый квартал(Всего 4 квартала):'))
-        sum_number = 0
-        for string in annual_profit.split ():
-            sum_number += int (string)
-        annual_profit = sum_number
+        annual_profit = sum([int(string) for string in annual_profit.split ()])
         FIRMS_ARRAY = FIRMS (
             id = index,
             name_firm = name_firm,
@@ -49,14 +46,10 @@ if __name__ == '__main__':
                          [list_firms[index].annual_profit for index in range(len(list_firms))]) \
                  / len(list_firms)
     print(f'Средняя годовая прибыль всех предприятий: ', avg_profit)
-    firms_up_avg, firms_down_avg = [],[]
-    for index in range (len (list_firms)):
-        if list_firms[index].annual_profit >= avg_profit:
-            firms_up_avg.append(list_firms[index].name_firm)
-        else:
-            firms_down_avg.append (list_firms[index].name_firm)
-    print (f'Предприятия, с прибылью выше среднего значения: ', ' ,'.join(firms_up_avg))
-    print (f'Предприятия, с прибылью ниже среднего значения: ', ' ,'.join(firms_down_avg))
-
-
+    print (f'Предприятия, с прибылью выше среднего значения: ',
+           ' ,'.join([list_firms[index].name_firm for index in range(len(list_firms))
+                    if list_firms[index].annual_profit >= avg_profit]))
+    print (f'Предприятия, с прибылью ниже среднего значения: ',
+           ' ,'.join([list_firms[index].name_firm for index in range(len(list_firms))
+                    if list_firms[index].annual_profit < avg_profit]))
 
